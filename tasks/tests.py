@@ -46,3 +46,13 @@ def test_update_task(api_client):
     assert response.status_code == status.HTTP_200_OK
     assert response.data["completed"] is True
     assert Task.objects.get(id=task.id).completed is True
+
+@pytest.mark.django_db
+def test_check_boolean_sending(api_client):
+    task = Task.objects.create(title="Draft")
+
+    response = api_client.patch(
+        f"/api/tasks/{task.id}/", {"completed": "test"}, format="json"
+    )
+
+    assert response.data["completed"] is True
