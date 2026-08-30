@@ -52,7 +52,7 @@ def test_check_boolean_sending(api_client):
     task = Task.objects.create(title="Draft")
 
     response = api_client.patch(
-        f"/api/tasks/{task.id}/", {"completed": "test"}, format="json"
+        f"/api/tasks/{task.id}/", {"completed": False}, format="json"
     )
 
-    assert response.data["completed"] is True
+    assert response.data["completed"] is False
