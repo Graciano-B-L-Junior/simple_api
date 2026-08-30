@@ -50,9 +50,9 @@ jobs:
             git fetch origin master
             git reset --hard origin/master
 
-            .venv/bin/pip install -r requirements.txt
-            .venv/bin/python manage.py migrate --noinput
-            .venv/bin/python manage.py collectstatic --noinput
+            venv/bin/pip install -r requirements.txt
+            venv/bin/python manage.py migrate --noinput
+            venv/bin/python manage.py collectstatic --noinput
 
             sudo systemctl restart simple-api
             sudo systemctl is-active --quiet simple-api
