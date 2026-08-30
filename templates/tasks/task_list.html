@@ -1,0 +1,68 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minhas tarefas</title>
+    <link rel="stylesheet" href="{% static 'tasks/task_list.css' %}">
+</head>
+<body>
+    <main class="page-shell">
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">Organização diária</p>
+                <h1>Minhas tarefas</h1>
+                <p class="subtitle">Um lugar simples para decidir o que vem depois.</p>
+            </div>
+            <div class="summary" aria-live="polite">
+                <strong id="pending-count">0</strong>
+                <span>pendentes</span>
+            </div>
+        </header>
+
+        <section class="composer" aria-labelledby="form-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Nova tarefa</p>
+                    <h2 id="form-title">O que precisa ser feito?</h2>
+                </div>
+                <button type="button" id="cancel-edit" class="button button-ghost hidden">Cancelar edição</button>
+            </div>
+            <form id="task-form">
+                {% csrf_token %}
+                <input type="hidden" id="task-id">
+                <label>
+                    Título
+                    <input id="title" name="title" maxlength="120" required placeholder="Ex.: Revisar o projeto">
+                </label>
+                <label>
+                    Descrição <span class="optional">opcional</span>
+                    <textarea id="description" name="description" rows="3" placeholder="Adicione algum contexto..."></textarea>
+                </label>
+                <button type="submit" class="button button-primary" id="submit-task">Adicionar tarefa</button>
+            </form>
+        </section>
+
+        <section class="tasks-section" aria-labelledby="list-title">
+            <div class="section-heading list-heading">
+                <div>
+                    <p class="eyebrow">Sua lista</p>
+                    <h2 id="list-title">Tarefas</h2>
+                </div>
+                <button type="button" id="refresh-tasks" class="button button-ghost">Atualizar</button>
+            </div>
+            <div id="message" class="message hidden" role="status"></div>
+            <div id="task-list" class="task-list" aria-live="polite"></div>
+            <div id="empty-state" class="empty-state hidden">
+                <span class="empty-mark">--</span>
+                <h3>Nenhuma tarefa por aqui</h3>
+                <p>Adicione uma tarefa acima para começar.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{% static 'tasks/task_list.js' %}"></script>
+</body>
+</html>
