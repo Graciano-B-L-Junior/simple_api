@@ -45,6 +45,11 @@ jobs:
           script: |
             set -e
 
+            if [ -z "${{ secrets.EC2_APP_DIR }}" ]; then
+              echo "EC2_APP_DIR secret is not set. Configure it in the repository secrets before deploying." >&2
+              exit 1
+            fi
+
             cd "${{ secrets.EC2_APP_DIR }}"
 
             git fetch origin master
